@@ -66,6 +66,51 @@ class backend extends base {
         return true;
     }
 
+    bind_hook() {
+
+        if(this._action_check_post_data){
+            this._hook.on(this._controller + '_action_check_post_data',this._action_check_post_data.bind(this));
+        }
+
+        if(this._action_delete_data){
+            this._hook.on(this._controller + '_action_delete_data',this._action_delete_data.bind(this));
+        }
+
+        if(this._batch_check_post_data){
+            this._hook.on(this._controller + '_batch_check_post_data',this._batch_check_post_data.bind(this));
+        }
+
+        if(this._batch_delete_data){
+            this._hook.on(this._controller + '_batch_delete_data',this._batch_delete_data.bind(this));
+        }
+
+        if(this._form_check_post_data){
+            this._hook.on(this._controller + '_form_check_post_data',this._form_check_post_data.bind(this));
+        }
+
+        if(this._form_get_fields){
+            this._hook.on(this._controller + '_form_get_fields',this._form_get_fields.bind(this));
+        }
+
+        if(this._form_get_data){
+            this._hook.on(this._controller + '_form_get_data',this._form_get_data.bind(this));
+        }
+
+        if(this._form_edit_data){
+            this._hook.on(this._controller + '_form_edit_data',this._form_edit_data.bind(this));
+        }
+
+        if(this._form_add_data){
+            this._hook.on(this._controller + '_form_add_data',this._form_add_data.bind(this));
+        }
+
+        if(this._table_get_data){
+            this._hook.on(this._controller + '_table_get_data',this._table_get_data.bind(this));
+        }
+
+    }
+
+
     async respond() {
         // 判断是否登录
         await this.auto_check_login();

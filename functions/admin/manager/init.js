@@ -23,97 +23,94 @@ class manager extends backend {
         return CryptoJS.SHA256(CryptoJS.SHA256(password).toString() + factor).toString();
     }
 
-    bind_hook() {
+    create_password(password) {
+        const factor = Math.random().toString(36).slice(-8);
+        password = this.generate_password(password, factor);
+        return {
+            factor: factor,
+            password: password
+        }
+    }
 
-        var that = this;
-
-        // 解决获取表单字段并查询数据时password2得问题
-        this._hook.on(this._controller + '_form_get_fields', async function(fields) {
-            let nfeilds = [];
-            for (var i = 0; i < fields.length; i++) {
-                if (fields[i].name == 'password' || fields[i].name == 'password2') {
-                    continue;
-                }
-                nfeilds.push(fields[i]);
+    // 解决获取表单字段并查询数据时password2得问题
+    async _form_get_fields(fields) {
+        let nfeilds = [];
+        for (var i = 0; i < fields.length; i++) {
+            if (fields[i].name == 'password' || fields[i].name == 'password2') {
+                continue;
             }
-            return nfeilds;
-        });
+            nfeilds.push(fields[i]);
+        }
+        return nfeilds;
+    };
 
-        // 被忽略的数据必须补回来，不然前端表单无法编辑
-        this._hook.on(this._controller + '_form_get_data', async function(data) {
-            data['password'] = '';
-            data['password2'] = '';
-            return data;
-        });
+    // 被忽略的数据必须补回来，不然前端表单无法编辑
+    async _form_get_data(data) {
+        data['password'] = '';
+        data['password2'] = '';
+        return data;
+    };
 
-        function create_password(password) {
-            const factor = Math.random().toString(36).slice(-8);
-            password = this.generate_password(password, factor);
-            return {
-                factor: factor,
-                password: password
+
+    // 创建或修改表单时，判断密码是否一致，并删除多余password2字段数据
+    async _form_check_post_data(data) {
+
+        const param = JSON.parse(this._post['param']);
+
+        const manager_model = this.model('manager');
+
+        const temp_data = await manager_model.one({ username: data['username'] });
+
+        // 新增
+        if (param['formAction'] == 'add') {
+            // 直接中断响应
+            if (temp_data) {
+                return this.exit_json(0, '该用户名已被使用，请换一个用户名');
+            }
+            if (data['password'] === '') {
+                return this.exit_json(0, '请输入密码');
+            }
+            if (data['password2'] === '') {
+                return this.exit_json(0, '请输入重复密码');
+            }
+            if (data['password'] !== data['password2']) {
+                return this.exit_json(0, '密码不一致');
+            }
+
+            const { factor, password } = this.create_password(data['password']);
+            data['factor'] = factor;
+            data['password'] = password;
+        }
+
+        // 编辑
+        if (param['formAction'] == 'set') {
+            // 直接中断响应
+            if (temp_data && temp_data[param['formField']] != param['formValue']) {
+                return this.exit_json(0, '该用户名已被使用，请换一个用户名');
+            }
+
+            // 只有当填写了密码时，才修改密码
+            if (data['password'] !== '') {
+                if (data['password2'] === '') {
+                    return this.exit_json(0, '请输入重复密码');
+                }
+                if (data['password'] !== data['password2']) {
+                    return this.exit_json(0, '密码不一致');
+                }
+                const { factor, password } = this.create_password(data['password']);
+                data['factor'] = factor;
+                data['password'] = password;
+            } else {
+                delete data['password'];
             }
         }
 
-        // 创建或修改表单时，判断密码是否一致，并删除多余password2字段数据
-        this._hook.on(this._controller + '_form_check_post_data', async function(data) {
+        delete data['password2'];
 
-            const param = JSON.parse(that._post['param']);
+        return data;
+    };
 
-            const manager_model = that.model('manager');
 
-            const temp_data = await manager_model.one({ username: data['username'] });
-
-            // 新增
-            if (param['formAction'] == 'add') {
-                // 直接中断响应
-                if (temp_data) {
-                    return that.exit_json(0, '该用户名已被使用，请换一个用户名');
-                }
-                if (data['password'] === '') {
-                    return that.exit_json(0, '请输入密码');
-                }
-                if (data['password2'] === '') {
-                    return that.exit_json(0, '请输入重复密码');
-                }
-                if (data['password'] !== data['password2']) {
-                    return that.exit_json(0, '密码不一致');
-                }
-
-                const { factor, password } = create_password(data['password']);
-                data['factor'] = factor;
-                data['password'] = password;
-            }
-
-            // 编辑
-            if (param['formAction'] == 'set') {
-                // 直接中断响应
-                if (temp_data && temp_data[param['formField']] != param['formValue']) {
-                    return that.exit_json(0, '该用户名已被使用，请换一个用户名');
-                }
-
-                // 只有当填写了密码时，才修改密码
-                if (data['password'] !== '') {
-                    if (data['password2'] === '') {
-                        return that.exit_json(0, '请输入重复密码');
-                    }
-                    if (data['password'] !== data['password2']) {
-                        return that.exit_json(0, '密码不一致');
-                    }
-                    const { factor, password } = create_password(data['password']);
-                    data['factor'] = factor;
-                    data['password'] = password;
-                } else {
-                    delete data['password'];
-                }
-            }
-
-            delete data['password2'];
-
-            return data;
-        });
-
-    }
 }
 export default manager
 export async function onRequest(context) {
