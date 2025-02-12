@@ -3,15 +3,15 @@ compatibility_flags = [ "nodejs_compat" ]
 [[d1_databases]]
 binding = "DB" # i.e. available in your Worker on env.DB
 database_name = "cloudflare-pages-quick-admin"
-database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+database_id = "3feba79c-2103-4afb-8bd9-68409cd2f094"
 
 [[kv_namespaces]]
 binding = "KV"
-id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+id = "678a2c18e3d84d14b1f88d5b80a3017a"
 
 [[r2_buckets]]
 binding = 'BUCKET' # <~ valid JavaScript variable name
 bucket_name = 'cloudflare-pages-quick-admin-r2'
 
 [vars]
-R2_BUCKET_DOMAIN = "https://pub-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.r2.dev/"
+R2_BUCKET_DOMAIN = "https://pub-ffc91f5c4f66477e90d587553e2b2b57.r2.dev/"

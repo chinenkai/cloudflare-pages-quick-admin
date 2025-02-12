@@ -1,4 +1,6 @@
-import store from './template/store.js'
+import VueRouter from 'VueRouter'
+
+import store from './store.js'
 
 /*
 import ext from './extPage.vue'
@@ -10,7 +12,7 @@ var extMap = {
 }
 
 // 后台配置
-Vue.prototype.$CONFIG = {
+var $CONFIG = {
     app_name: 'HiCode',
     app_ver: '4.0',
     slogan: '高性能 / 快速 / 简洁',
@@ -28,11 +30,11 @@ function bootstrap(extMap, menusApi) {
     // 没有token
     if (!token) {
 
-        store.funs.initVue(router);
+        store.funs.initVue(router,$CONFIG);
 
         // 未登录，跳转到登录页
-        if (window.VueApp.$route.path != '/login') {
-            window.VueApp.$router.replace('/login');
+        if (router.currentRoute.value.path != '/login') {
+            router.replace('/login');
         }
 
         return;
@@ -40,8 +42,9 @@ function bootstrap(extMap, menusApi) {
 
     // 有token的话，尝试获取后端的菜单数据
     store.funs.initMenusAndUser(menusApi, extMap, router, function(result) {
-        store.funs.initVue(router);
+        
+        store.funs.initVue(router,$CONFIG);
     });
 }
 
-bootstrap(extMap, Vue.prototype.$CONFIG.api.menus);
+bootstrap(extMap, $CONFIG.api.menus);

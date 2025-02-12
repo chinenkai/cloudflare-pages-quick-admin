@@ -1,8 +1,9 @@
 <template>
     <section class="admin-layout">
         <div class="admin-layout-side-split">
-            <div class="admin-layout-side-split-top">
-                <a href="../?from=admin" target="_blank">
+            <div class="admin-layout-side-split-top" @click="showLayoutSide = !showLayoutSide">
+                <!-- <a href="../?from=backend" target="_blank"> -->
+                <a href="javascript:;">
                     <img class="logo" :title="$CONFIG.APP_NAME" src="./assets/logo-r.png">
                 </a>
             </div>
@@ -16,7 +17,7 @@
                 </ul>
             </div>
         </div>
-        <div v-if="topMenus.length > 0" class="admin-layout-side">
+        <div v-if="topMenus.length > 0 && showLayoutSide" class="admin-layout-side">
             <div class="admin-layout-side-top">
                 <h2 v-if="curTopMenu">{{ curTopMenu.title }}</h2>
             </div>
@@ -78,13 +79,13 @@ export default {
     components: {},
     computed: {
         menus: function() {
-            return this.$root.$data.state.menus;
+            return this.$state.menus;
         },
         user: function() {
-            return this.$root.$data.state.user;
+            return this.$state.user;
         },
         activeMenuHook: function() {
-            return this.$root.$data.state.activeMenuHook;
+            return this.$state.activeMenuHook;
         },
         routerViewKey: function() {
             // 解决不同路由使用相同组件钩子函数不执行问题
@@ -122,12 +123,13 @@ export default {
     },
     data: function() {
         return {
+            showLayoutSide: true,
             curTopMenu: {},
             topMenus: [],
             terMenus: [],
             subActive: '',
             fouActive: '',
-            overlayClassName: 'asdfasdfasdf',
+            overlayClassName: '',
         }
     },
     methods: {
@@ -292,6 +294,7 @@ export default {
         },
         //点击显示
         topMenuOnClick: function(item) {
+            this.showLayoutSide = true;
             this.curTopMenu = item;
             this.topMenus = this.filterUrl(item.children);
             if ((!item.children || item.children.length == 0) && item.component) {

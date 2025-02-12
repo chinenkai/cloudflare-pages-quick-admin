@@ -19,4 +19,9 @@ export default {
     border: 1px solid #EBEEF5;
     background-color: #FFF;
 }
+/*针对连级菜单，不限制宽度*/
+html body .t-popup .t-cascader__menu{
+    min-width: 148px;
+    width: auto;
+}
 </style>

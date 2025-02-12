@@ -22,15 +22,19 @@
                 <t-tabs v-model="tabsValue">
                     <!-- 默认插槽 和 具名插槽（panel）都是用来渲染面板内容 -->
                     <t-tab-panel value="first" label="账号登录" :destroyOnHide="false">
-                        <t-form :data="formData" ref="loginForm" :rules="rules" @submit="submitOnClick" :colon="true" :labelWidth="0">
+                        <t-form :data="formData" ref="loginForm" :rules="rules" @submit="submitOnClick" :colon="true" :label-width="0" :required-mark="false">
                             <t-form-item name="username">
                                 <t-input clearable v-model="formData.username" placeholder="请输入账户名">
-                                    <t-icon name="user-unknown" slot="prefix-icon" />
+                                  <template #prefix-icon>
+                                    <t-icon name="user-unknown"/>
+                                  </template>
                                 </t-input>
                             </t-form-item>
                             <t-form-item name="password">
                                 <t-input type="password" clearable v-model="formData.password" placeholder="请输入密码">
-                                    <t-icon name="user-password" slot="prefix-icon" />
+                                    <template #prefix-icon>
+                                    <t-icon name="user-password"/>
+                                  </template>
                                 </t-input>
                             </t-form-item>
                             <t-form-item>
@@ -50,8 +54,8 @@ export default {
         return {
             tabsValue: 'first',
             formData: {
-                username: "vue-web-loader-2-admin",
-                password: "vue-web-loader-2-admin",
+                username: "cloudflare-pages-quick-admin",
+                password: "cloudflare-pages-quick-admin",
             },
             rules: {
                 username: [

@@ -107,7 +107,6 @@ CREATE TABLE "user" (
   "updatetime" INTEGER NOT NULL DEFAULT 0
 );
 
-CREATE INDEX "idx_attachment_id" ON "attachment" ("id");
 CREATE INDEX "idx_attachment_uid" ON "attachment" ("uid");
 CREATE INDEX "idx_attachment_type" ON "attachment" ("type");
 CREATE INDEX "idx_attachment_name" ON "attachment" ("name");
@@ -119,7 +118,6 @@ CREATE INDEX "idx_attachment_status" ON "attachment" ("status");
 CREATE INDEX "idx_attachment_createtime" ON "attachment" ("createtime");
 CREATE INDEX "idx_attachment_updatetime" ON "attachment" ("updatetime");
 
-CREATE INDEX "idx_config_id" ON "config" ("id");
 CREATE INDEX "idx_config_group" ON "config" ("group");
 CREATE INDEX "idx_config_name" ON "config" ("name");
 CREATE INDEX "idx_config_value" ON "config" ("value");
@@ -128,14 +126,12 @@ CREATE INDEX "idx_config_status" ON "config" ("status");
 CREATE INDEX "idx_config_createtime" ON "config" ("createtime");
 CREATE INDEX "idx_config_updatetime" ON "config" ("updatetime");
 
-CREATE INDEX "idx_demo_id" ON "demo" ("id");
 CREATE INDEX "idx_demo_uid" ON "demo" ("uid");
 CREATE INDEX "idx_demo_listorder" ON "demo" ("listorder");
 CREATE INDEX "idx_demo_status" ON "demo" ("status");
 CREATE INDEX "idx_demo_createtime" ON "demo" ("createtime");
 CREATE INDEX "idx_demo_updatetime" ON "demo" ("updatetime");
 
-CREATE INDEX "idx_errmsg_id" ON "errmsg" ("id");
 CREATE INDEX "idx_errmsg_uid" ON "errmsg" ("uid");
 CREATE INDEX "idx_errmsg_action" ON "errmsg" ("action");
 CREATE INDEX "idx_errmsg_postdata" ON "errmsg" ("postdata");
@@ -144,7 +140,6 @@ CREATE INDEX "idx_errmsg_status" ON "errmsg" ("status");
 CREATE INDEX "idx_errmsg_createtime" ON "errmsg" ("createtime");
 CREATE INDEX "idx_errmsg_updatetime" ON "errmsg" ("updatetime");
 
-CREATE INDEX "idx_logs_id" ON "logs" ("id");
 CREATE INDEX "idx_logs_uid" ON "logs" ("uid");
 CREATE INDEX "idx_logs_username" ON "logs" ("username");
 CREATE INDEX "idx_logs_controller" ON "logs" ("controller");
@@ -153,7 +148,6 @@ CREATE INDEX "idx_logs_ip" ON "logs" ("ip");
 CREATE INDEX "idx_logs_createtime" ON "logs" ("createtime");
 CREATE INDEX "idx_logs_updatetime" ON "logs" ("updatetime");
 
-CREATE INDEX "idx_manager_id" ON "manager" ("id");
 CREATE INDEX "idx_manager_username" ON "manager" ("username");
 CREATE INDEX "idx_manager_password" ON "manager" ("password");
 CREATE INDEX "idx_manager_email" ON "manager" ("email");
@@ -162,7 +156,6 @@ CREATE INDEX "idx_manager_factor" ON "manager" ("factor");
 CREATE INDEX "idx_manager_createtime" ON "manager" ("createtime");
 CREATE INDEX "idx_manager_updatetime" ON "manager" ("updatetime");
 
-CREATE INDEX "idx_user_id" ON "user" ("id");
 CREATE INDEX "idx_user_name" ON "user" ("name");
 CREATE INDEX "idx_user_phone" ON "user" ("phone");
 CREATE INDEX "idx_user_password" ON "user" ("password");
