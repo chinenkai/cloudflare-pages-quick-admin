@@ -1,22 +1,22 @@
 export default [{
-        type: "input",
+        widget: "input",
         label: "ID",
         name: "id",
         disabled: true,
     },
     {
-        type: "input",
+        widget: "input",
         label: "管理员ID",
         name: "uid",
         // disabled: true,
     },
     {
-        type: "input",
+        widget: "input",
         label: "标题",
         name: "name",
     },
     {
-        type: "input",
+        widget: "input",
         label: "类型",
         name: "type",
     },
@@ -53,12 +53,12 @@ export default [{
     //     ],
     // },
     {
-        type: "input",
+        widget: "input",
         label: "大小(KB)",
         name: "size",
     },
     {
-        type: "input",
+        widget: "input",
         label: "状态",
         name: "status",
     },

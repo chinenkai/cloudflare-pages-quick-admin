@@ -1,15 +1,15 @@
 export default [{
-        type: "input",
+        widget: "input",
         label: "用户名",
         name: "name",
     },
     {
-        type: "input",
+        widget: "input",
         label: "备注",
         name: "remark",
     },
     {
-        type: "input",
+        widget: "input",
         label: "状态",
         name: "status",
     },

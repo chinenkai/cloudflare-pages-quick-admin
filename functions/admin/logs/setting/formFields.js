@@ -1,31 +1,31 @@
 export default [{
-        type: "input",
+        widget: "input",
         label: "管理员ID",
         name: "uid",
         disabled: true,
     },
     {
-        type: "input",
+        widget: "input",
         label: "管理员",
         name: "username",
     },
     {
-        type: "input",
+        widget: "input",
         label: "控制器",
         name: "controller",
     },
     {
-        type: "input",
+        widget: "input",
         label: "动作",
         name: "action",
     },
     {
-        type: "input",
+        widget: "input",
         label: "IP地址",
         name: "ip",
     },
     {
-        type: "input",
+        widget: "input",
         label: "备注",
         name: "remark",
     },

@@ -114,7 +114,7 @@ export default {
             tableTotal: 0,
             pageSize: 20,
             multipleSelection: [],
-            currentPage: '',
+            currentPage: 0,
             searchDate: [],
             searchField: '',
             searchComparator: '=',

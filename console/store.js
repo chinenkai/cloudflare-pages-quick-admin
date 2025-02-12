@@ -76,10 +76,10 @@ var funs = {
         return JSON.parse(JSON.stringify(data));
     },
     successMsg: function(msg) {
-        window.VueApp.$message.success(msg);
+        window.VueApp.config.globalProperties.$message.success(msg);
     },
     errorMsg: function(msg) {
-        window.VueApp.$message.error(msg);
+        window.VueApp.config.globalProperties.$message.error(msg);
     },
     confirmMsg: function(msg, callback) {
         const confirmDia = VueApp.$dialog.confirm({
@@ -292,7 +292,6 @@ var funs = {
             }
         }
 
-        console.log(router.getRoutes());
         state.menus = menus;
     },
 }
