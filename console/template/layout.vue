@@ -30,7 +30,7 @@
                                 <t-icon v-if="subMenu.icon" :name="subMenu.icon || 'menu-application'" size="large"></t-icon>
                                 <span>{{subMenu.title}}</span>
                             </div>
-                            <template v-for="terMenu in subMenu.children">
+                            <template v-for="terMenu in subMenu.children" :key="terMenu.path">
                                 <t-menu-item :value="terMenu.path" @click="terMenuOnClick(terMenu)">
                                     <span class="admin-layout-menu-item-title">{{terMenu.title}}</span>
                                 </t-menu-item>
@@ -44,7 +44,7 @@
             <div class="admin-layout-topbar">
                 <div class="left-panel">
                     <t-head-menu v-model="fouActive" class="admin-layout-topbar-menu">
-                        <template v-for="fouMenu in terMenus.children">
+                        <template v-for="fouMenu in terMenus.children" :key="fouMenu.path">
                             <t-menu-item :value="fouMenu.path" @click="fouMenuOnClick(fouMenu)">
                                 <span class="admin-layout-menu-item-title">{{fouMenu.title}}</span>
                             </t-menu-item>
