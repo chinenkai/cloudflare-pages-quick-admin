@@ -24,7 +24,7 @@ class base {
         this._headers = this._parse_headers(this._ctx);
 
         // 实例化token
-        this._token = new token(this._post['token'], await this.init_app_version());
+        this._token = new token(this._post['token'], this.app_version());
 
         // 实例化hook
         this._hook = new hook();
@@ -45,21 +45,9 @@ class base {
 
     bind_hook() {}
 
-    async init_app_version() {
+    app_version() {
 
-        // 每次系统重置，都重新生成一个app_version
-        const base_kv = this.kvalue('base');
-
-        let init_time = await base_kv.get('init_time');
-
-        if (!init_time) {
-
-            init_time = this.time();
-
-            base_kv.put('init_time', init_time);
-        }
-
-        return init_time;
+        return this._ctx.env.APP_VERSION ? this._ctx.env.APP_VERSION : 0;
     }
 
     _parse_headers(context) {
